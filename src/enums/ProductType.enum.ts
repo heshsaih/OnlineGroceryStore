@@ -1,7 +1,7 @@
 export enum ProductTypeEnum {
-    BREAD,
-    BEVERAGES,
-    FRIUTS,
-    VEGETABLES,
-    MEAT
+    BREAD = "Bread",
+    BEVERAGES = "Beverages",
+    FRIUTS = "Fruits",
+    VEGETABLES = "Vegetables",
+    MEAT = "Meat"
 }

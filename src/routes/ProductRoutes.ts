@@ -1,5 +1,9 @@
 import express, { Request, Response } from 'express';
-import { findAllProducts, findProductById } from '../repositories/ProductRepository';
+import { createProduct, findAllProducts, findProductById, updateProduct } from '../repositories/ProductRepository';
+import { ProductType, isProduct } from '../types/Product';
+import { Error } from 'mongoose';
+import { StatusCodes } from 'http-status-codes';
+
 
 const router = express.Router();
 
@@ -8,15 +12,29 @@ router.get("/", async (req: Request, res: Response) => {
 });
 
 router.get("/:id", async (req: Request, res: Response) => {
-    res.send(await findProductById(req.params.id));
+    const result = await findProductById(req.params.id);
+    if (result instanceof Error.DocumentNotFoundError) {
+        res.status(StatusCodes.NOT_FOUND);
+    }
+    res.send(result);
 });
 
-router.post("/", (req: Request, res: Response) => {
-
+router.post("/", async (req: Request, res: Response) => {
+    const result = await createProduct(req.body);
+    if (result instanceof Error.ValidationError) {
+        res.status(StatusCodes.BAD_REQUEST);
+    }
+    res.send(result);
 });
 
-router.put("/:id", (req: Request, res: Response) => {
-
+router.put("/:id", async (req: Request, res: Response) => {
+    const result = await updateProduct(req.params.id, req.body);
+    if (result instanceof Error.DocumentNotFoundError) {
+        res.status(StatusCodes.NOT_FOUND);
+    } else if (result instanceof Error.ValidationError) {
+        res.status(StatusCodes.BAD_REQUEST);
+    }
+    res.send(result);
 });
 
 export default router;

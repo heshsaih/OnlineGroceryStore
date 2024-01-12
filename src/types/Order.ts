@@ -1,11 +1,17 @@
-import { OrderStateEnum } from "../enums/OrderState.enum";
-import { ProductOrderType } from "./ProductOrder";
+import { OrderStatusEnum } from "../enums/OrderStatus.enum";
+import { ProductTypeEnum } from "../enums/ProductType.enum";
 
 export interface OrderType {
     approvalDate: Date,
-    orderState: OrderStateEnum,
+    orderStatus: OrderStatusEnum,
     username: string,
     email: string,
     phoneNumber: string,
-    products: ProductOrderType[]
+    orderedProducts: OrderedProductsType[]
+}
+
+
+export interface OrderedProductsType {
+    productName: string,
+    quantity: number
 }
