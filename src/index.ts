@@ -21,7 +21,7 @@ app.use(bodyParser.json());
 app.use("/products", productRoutes);
 app.use("/orders", orderRoutes);
 
-app.listen(port, () => {
-    connectToDatabaseAndInitData();
+app.listen(port, async () => {
+    await connectToDatabaseAndInitData();
     console.log(`Running on port ${port}`);
 });

@@ -29,3 +29,5 @@ export const productSchema = new Schema<ProductType>({
         required: [true, ProductValidationMessages.PRODUCT_TYPE_REQUIRED]
     }
 });
+
+productSchema.set("toJSON", { virtuals: true })

@@ -9,6 +9,7 @@ export const findAllProducts = async () => {
     try {
         return await Product.find({});
     } catch (error) {
+        console.log(error);
         return error as Error.MongooseServerSelectionError;
     }
 }
@@ -21,6 +22,7 @@ export const findProductById = async (id: string) => {
         }
         return result;
     } catch (error) {
+        console.log(error);
         if (error instanceof Error.DocumentNotFoundError) {
             return error as Error.DocumentNotFoundError;
         }
@@ -31,6 +33,7 @@ export const createProduct = async (product: ProductType) => {
     try {
         return await new Product(product).save();
     } catch (error) {
+        console.log(error)
         if (error instanceof Error.ValidationError) {
             return error as Error.ValidationError;
         }
@@ -46,6 +49,7 @@ export const updateProduct = async (id: string, newProduct: ProductType) => {
         }
         return result;
     } catch (error) {
+        console.log(error);
         if (error instanceof Error.DocumentNotFoundError) {
             return error as Error.DocumentNotFoundError;
         } else if (error instanceof Error.ValidationError) {

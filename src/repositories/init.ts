@@ -23,14 +23,14 @@ const products: ProductType[] = [
     },
     {
         name: "Lettuce",
-        description: "Fresh lettuce, perfect for salads of sandwitches",
+        description: "Fresh lettuce, perfect for salads of sandwiches",
         unitPrice: 3.50,
         unitWeight: 0.25,
         productType: ProductTypeEnum.VEGETABLES
     },
     {
         name: "Papriker",
-        description: "Hungarian dish, primarly consists of meat and paprika",
+        description: "Hungarian dish, primarily consists of meat and paprika",
         unitPrice: 4.78,
         unitWeight: 0.310,
         productType: ProductTypeEnum.MEAT
@@ -47,7 +47,7 @@ const products: ProductType[] = [
         description: "Red, crispy and sweet apples, straight from an orchard",
         unitPrice: 3.0,
         unitWeight: 1.0,
-        productType: ProductTypeEnum.FRIUTS
+        productType: ProductTypeEnum.FRUITS
     },
     {
         name: "Sparkling water",
@@ -61,14 +61,14 @@ const products: ProductType[] = [
         description: "Juicy tomatoes",
         unitPrice: 12.50,
         unitWeight: 1.0,
-        productType: ProductTypeEnum.BEVERAGES
+        productType: ProductTypeEnum.FRUITS
     },
     {
         name: "Banana",
         description: "Fresh, yellow bananas",
         unitPrice: 6.99,
         unitWeight: 1.0,
-        productType: ProductTypeEnum.FRIUTS
+        productType: ProductTypeEnum.FRUITS 
     },
     {
         name: "Toast bread",

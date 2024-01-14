@@ -1,8 +1,12 @@
+import { BrowserRouter } from "react-router-dom";
+import RoutesComponent from "./router/Routes/index";
+import "./index.css";
+
 function App() {
   return (
-    <>
-      <h1>Hello World!</h1>
-    </>
+    <BrowserRouter>
+      <RoutesComponent></RoutesComponent>
+    </BrowserRouter>
   );
 }
 
