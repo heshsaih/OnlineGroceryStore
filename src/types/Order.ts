@@ -13,5 +13,5 @@ export interface OrderType {
 
 export interface OrderedProductsType {
     productName: string,
-    quantity: number
+    amount: number
 }

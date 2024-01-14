@@ -2,6 +2,7 @@ import mongoose, { model, Error } from "mongoose";
 import { productSchema } from "../schemas/Product";
 import { ProductType } from "../types/Product";
 import { ProductTypeEnum } from "../enums/ProductType.enum";
+import { connectToMongoDB } from "./connection";
 
 export const Product = model<ProductType>("Product", productSchema);
 
@@ -10,7 +11,11 @@ export const findAllProducts = async () => {
         return await Product.find({});
     } catch (error) {
         console.log(error);
-        return error as Error.MongooseServerSelectionError;
+        if (error instanceof Error.MongooseServerSelectionError) {
+            console.log("Trying to connect again...");
+            await connectToMongoDB();
+        }
+        return error;
     }
 }
 
@@ -25,18 +30,30 @@ export const findProductById = async (id: string) => {
         console.log(error);
         if (error instanceof Error.DocumentNotFoundError) {
             return error as Error.DocumentNotFoundError;
+        } else if (error instanceof Error.MongooseServerSelectionError) {
+            console.log("Trying to connect again...");
+            await connectToMongoDB();
         }
+        return error;
     }
 }
 
 export const createProduct = async (product: ProductType) => {
     try {
-        return await new Product(product).save();
+        console.log("Inserting new product...");
+        const response = await new Product(product).save();
+        console.log("New product has been inserted!");
+        console.log(response);
+        return response;
     } catch (error) {
-        console.log(error)
+        console.log(error);
         if (error instanceof Error.ValidationError) {
             return error as Error.ValidationError;
+        } else if (error instanceof Error.MongooseServerSelectionError) {
+            console.log("Trying to connect again...");
+            await connectToMongoDB();
         }
+        return error;
     }
 }
 
@@ -54,6 +71,10 @@ export const updateProduct = async (id: string, newProduct: ProductType) => {
             return error as Error.DocumentNotFoundError;
         } else if (error instanceof Error.ValidationError) {
             return error as Error.ValidationError;
+        } else if (error instanceof Error.MongooseServerSelectionError) {
+            console.log("Trying to connect again...");
+            await connectToMongoDB();
         }
+        return error;
     }
 }

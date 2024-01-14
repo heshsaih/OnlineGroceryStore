@@ -7,6 +7,10 @@
     --nice-blue: rgb(37, 103, 255);
     --font-color: #3c3c3c;
     --darker-nice-blue: rgb(0, 69, 160);
+    --green-color: rgb(0, 174, 9);
+    --dark-green-color: rgb(0, 85, 4);
+    --red-color: rgb(237, 37, 37);
+    --dark-red-color: rgb(120, 0, 0);
 }
 
 body {
@@ -53,7 +57,7 @@ body {
     text-decoration: none;
     color: var(--font-color);
 }
-.navbar-item > p {
+p {
     margin: 0;
 }
 
@@ -73,15 +77,40 @@ body {
     background-color: var(--button-hover);
 }
 
+.button:disabled {
+    background-color: grey;
+    color: var(--button-hover);
+}
+
+.button:disabled:hover {
+    background-color: grey;
+}
+
 .blue {
     background-color: var(--nice-blue);
-    transition: var(--transition-time);
-    padding: 0.5rem;
     color: white;
 }
 
 .blue:hover {
     background-color: var(--darker-nice-blue);
+}
+
+.green {
+    background-color: var(--green-color);
+    color: white;
+}
+
+.green:hover {
+    background-color: var(--dark-green-color);
+}
+
+.red {
+    background-color: var(--red-color);
+    color: white;
+}
+
+.red:hover {
+    background-color: var(--dark-red-color);
 }
 
 @keyframes show {
@@ -128,6 +157,9 @@ body {
     border-radius: var(--border-radius);
     border: 1px solid var(--light-grey-border);
     padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items:  center;
 }
 
 .component-body {
@@ -147,9 +179,6 @@ body {
 
 .content {
     flex: 1 1 auto;
-    padding: 1rem;
-    overflow: scroll;
-    max-height: 91vh;
 }
 
 .product {
@@ -158,6 +187,8 @@ body {
     margin: 1rem;
     padding: 1rem;
     transition: var(--transition-time);
+    display: flex;
+    justify-content: space-between;
 }
 
 .product:hover {
@@ -214,6 +245,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    word-wrap: break-word;
 }
 
 .close-button {
@@ -234,18 +266,21 @@ body {
     color: white;
 }
 
-@media(max-width: 600px) {
-    #component {
-        flex-direction: column;
-        justify-content: start;
-        align-items: center;
-    }
-}
-
 table, th, td {
     border-collapse: collapse;
     border: 1px solid var(--light-grey-border);
     padding: 0.3rem;
+}
+
+table {
+    table-layout: fixed;
+    width: 100%;
+    max-width: 40rem;
+}
+
+td {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 tr {
@@ -258,6 +293,7 @@ tr:hover {
 
 #elements {
     flex-direction: column;
+    border-bottom: 1px solid var(--light-grey-border);
 }
 
 .text-input {
@@ -292,4 +328,64 @@ tr:hover {
 
 .select-input:focus {
     outline: 3px solid var(--nice-blue);
+}
+
+.product-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.number {
+    width: 3rem;
+}
+
+.ordered-product {
+    display: flex;
+    justify-content: space-between;
+}
+
+.ordered-product-manipulation {
+    display: flex;
+    align-items: center;
+    
+}
+
+.ordered-product-data {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    margin-right: 2rem;
+}
+
+.ordered-products {
+    max-height: 20rem;
+    overflow: auto;
+}
+
+#products {
+    overflow: scroll;
+    max-height: 77vh;
+}
+
+.modal-heading {
+    text-align: center;
+}
+
+.inputs {
+    flex-direction: column;
+}
+
+@media (max-width: 600px) {
+    .component-body {
+        flex-direction: column;
+    }
+
+    .content {
+        overflow:unset;
+    }
+
+    .modal-container {
+        width: 80vw;
+    }
 }

@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
 import { api } from "../../api/api";
-import { CreateProductType, ProductType } from "../../types/Product";
+import { CreateProductType, OrderedProductType, ProductType } from "../../types/Product";
 import ProductComponent from "../../components/Product";
 import { ProductTypeEnum } from "../../enums/ProductType.enum";
-import { apiWithConfig } from "../../api/api.config";
 import { StatusCodes } from "http-status-codes";
-import { Error } from "mongoose";
 
-const ProductsPageComponent = () => {
+const ProductsPageComponent = ({ addOrderedProduct }: { addOrderedProduct: (newProduct: OrderedProductType) => void }) => {
     const [isLoading, setIsLoading] = useState(true);
     const [fetchedProducts, setFetchedProducts] = useState<ProductType[]>([]);
     const [filteredProducts, setFilteredProducts] = useState<ProductType[]>([]);
@@ -23,8 +21,10 @@ const ProductsPageComponent = () => {
         try {
             setIsLoading(true);
             const response = await api.getAllProducts();
-            setFetchedProducts(response.data);
-            setFilteredProducts(response.data);
+            console.log(response);
+            if (response.data) {
+                setFetchedProducts(response.data);
+            }
         } catch (error) {
             console.error(error);
         } finally {
@@ -40,14 +40,16 @@ const ProductsPageComponent = () => {
     }
 
     const filterProducts = () => {
-        setFilteredProducts(fetchedProducts.filter(obj => obj.name.toLowerCase().includes(filter.toLowerCase())))
+        setFilteredProducts(fetchedProducts.filter(obj => obj.name.toLowerCase().includes(filter.toLowerCase())));
     }
 
     useEffect(() => {
         fetchProducts();
     }, []);
 
-    useEffect(() => filterProducts(), [filter, fetchedProducts]);
+    useEffect(() => {
+        filterProducts();
+    }, [filter, fetchedProducts]);
 
     const createNewProduct = async () => {
         try {
@@ -56,8 +58,9 @@ const ProductsPageComponent = () => {
                 alert("New product has been created successfully");
                 await fetchProducts();
             } else {
-                alert("There was an error");
-                console.log(response.request?.response)
+                let responseMessage = `${response.message} and message:\n\n`;
+                Object.keys(response.response.data.errors).forEach(key => responseMessage += response.response.data.errors[key].message + "\n");
+                alert(responseMessage);
             }
         } catch (error) {
             console.log(error);
@@ -74,23 +77,25 @@ const ProductsPageComponent = () => {
                     <label htmlFor="description">Description</label>
                     <input onChange={e => updateNewProduct(e)} value={newProduct.description} placeholder="Enter description" type="text" name="description" id="description" className="text-input"/>
                     <label htmlFor="unitPrice">Unit price</label>
-                    <input onChange={e => updateNewProduct(e)} value={newProduct.unitPrice} placeholder="Enter unit price" type="text" name="unitPrice" id="unitPrice" className="text-input"/>
+                    <input onChange={e => updateNewProduct(e)} value={newProduct.unitPrice} placeholder="Enter unit price" type="number" name="unitPrice" id="unitPrice" className="text-input"/>
                     <label htmlFor="unitWeight">Unit weight</label>
-                    <input onChange={e => updateNewProduct(e)} value={newProduct.unitWeight} placeholder="Enter unit weight" type="text" name="unitWeight" id="unitWeight" className="text-input"/>
+                    <input onChange={e => updateNewProduct(e)} value={newProduct.unitWeight} placeholder="Enter unit weight" type="number" name="unitWeight" id="unitWeight" className="text-input"/>
                     <label htmlFor="productType">Product type</label>
-                    <select onChange={e => updateNewProduct(e)} name="productType" id="productType" className="select-input">
-                        {Object.keys(ProductTypeEnum).map((x, _i) => <option value={x}>{ProductTypeEnum[x]}</option>)}
+                    <select value={newProduct.productType} onChange={e => updateNewProduct(e)} name="productType" id="productType" className="select-input">
+                        {Object.values(ProductTypeEnum).map((x, i) => <option key={i} value={x}>{x}</option>)}
                     </select>
                     <button onClick={createNewProduct} className="button blue">Create product</button>
                 </div>
             </div>
-            <div className="content" id="products">
+            <div className="content" id="products-container">
                 <div className="container" id="elements">
                     <h1>Available products</h1>
                     <input onChange={e => setFilter(e.target.value)} type="text" className="text-input" placeholder="Filter products"/>
                 </div>
-                {isLoading && <p>Loading</p>}
-                {!isLoading && filteredProducts && filteredProducts.map((x, i) => <ProductComponent key={i} product={x}></ProductComponent>)}
+                <div id="products">
+                    {isLoading && <p>Loading</p>}
+                    {!isLoading && filteredProducts && filteredProducts.map((x, i) => <ProductComponent fetchProducts={fetchProducts} addOrderedProduct={addOrderedProduct} key={i} product={x}></ProductComponent>)}
+                </div>
             </div>
         </div>
     );

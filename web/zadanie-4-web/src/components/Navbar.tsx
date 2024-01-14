@@ -3,6 +3,7 @@ import { BasketIcon, HomeIcon, LogoIcon, OrderIcon, ProductIcon } from "../asset
 import { NavbarItemType } from "../types/NavbarItem";
 import { useEffect, useRef, useState } from "react";
 import DropDownComponent from "./DropDownComponent";
+import { OrderedProductType } from "../types/Product";
 
 const navbarItems: NavbarItemType[] = [
     {
@@ -22,7 +23,13 @@ const navbarItems: NavbarItemType[] = [
     }
 ];
 
-const Navbar = () => {
+type NavbarPropsType = {
+    orderedProducts: OrderedProductType[], 
+    addOrderedProduct: (product: OrderedProductType) => void, 
+    removeOrderedProduct: (product: OrderedProductType) => void
+}
+
+const Navbar = ({ orderedProducts, addOrderedProduct, removeOrderedProduct }: NavbarPropsType) => {
     const [showBasket, setShowBasket] = useState(false);
     const basketRef = useRef();
     const hideBasket = () => {
@@ -61,7 +68,7 @@ const Navbar = () => {
             </div>
             <div id="basket" ref={basketRef}>
                 <button onClick={() => showBasket ? hideBasket() : displayBasket()} className="button"><BasketIcon></BasketIcon></button>
-                {showBasket ? <DropDownComponent></DropDownComponent> : <></>}
+                {showBasket ? <DropDownComponent orderedProducts={orderedProducts} addOrderedProduct={addOrderedProduct} removeOrderedProduct={removeOrderedProduct} ></DropDownComponent> : <></>}
             </div>
         </div>
     )

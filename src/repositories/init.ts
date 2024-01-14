@@ -82,29 +82,25 @@ const products: ProductType[] = [
 const orders: OrderType[] = [
     {
         approvalDate: new Date(),
-        orderStatus: OrderStatusEnum.NOT_APPROVED,
+        orderStatus: OrderStatusEnum.NOT_CONFIRMED,
         username: "stachu",
         email: "stachu12@onet.pl",
         phoneNumber: "553220351",
         orderedProducts: [
             {
                 productName: "Bananas",
-                quantity: 3
+                amount: 3
             },
             {
                 productName: "Apples",
-                quantity: 12
+                amount: 12
             }
         ]
     }
 ];
 
-export const connectToDatabaseAndInitData = async () => {
-    await mongoose.connect(process.env.DB_URL || "mongodb://localhost:27017/db")
-        .catch(error => console.error(error))
-        .finally(() => {
-            mongoose.connection.db.dropDatabase();
-            products.forEach(async (obj) => await createProduct(obj));
-            orders.forEach(async (obj) => await createOrder(obj));
-        });
+export const initData = async () => {
+    await mongoose.connection.db.dropDatabase();
+    products.forEach(async (obj) => await createProduct(obj));
+    orders.forEach(async (obj) => await createOrder(obj));
 };

@@ -11,10 +11,10 @@ const OrderedProductSchema = new Schema<OrderedProductsType>({
         minlength: [3, OrderedProductValidationMessages.PRODUCT_NAME_TOO_SHORT],
         required: [true, OrderedProductValidationMessages.PRODUCT_NAME_REQUIRED]
     },
-    quantity: {
+    amount: {
         type: Number,
-        min: [1, OrderedProductValidationMessages.QUANTITY_LESS_THAN_ONE],
-        required: [true, OrderedProductValidationMessages.QUANTITY_REQUIRED]
+        min: [1, OrderedProductValidationMessages.AMOUNT_LESS_THAN_ONE],
+        required: [true, OrderedProductValidationMessages.AMOUNT_REQUIRED]
     }
 });
 
@@ -23,7 +23,7 @@ export const orderSchema = new Schema<OrderType>({
     orderStatus: {
         type: String,
         enum: OrderStatusEnum,
-        required: [true, OrderValidationMessages.STATUS_REQUIRED]
+        required: true
     },
     username: {
         type: String,
@@ -47,3 +47,5 @@ export const orderSchema = new Schema<OrderType>({
         required: [true, OrderValidationMessages.ORDERED_PRODUCT_REQUIRED]
     }]
 });
+
+orderSchema.set("toJSON", { virtuals: true })

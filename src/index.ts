@@ -2,7 +2,8 @@ import express, { Request, Response } from 'express';
 import { configDotenv } from 'dotenv';
 import productRoutes from "./routes/ProductRoutes";
 import orderRoutes from "./routes/OrderRoutes";
-import { connectToDatabaseAndInitData } from './repositories/init';
+import { initData } from './repositories/init';
+import { connectToMongoDB } from './repositories/connection';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 
@@ -22,6 +23,6 @@ app.use("/products", productRoutes);
 app.use("/orders", orderRoutes);
 
 app.listen(port, async () => {
-    await connectToDatabaseAndInitData();
+    await connectToMongoDB().then(async () => await initData());
     console.log(`Running on port ${port}`);
 });

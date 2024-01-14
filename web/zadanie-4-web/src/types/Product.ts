@@ -16,3 +16,9 @@ export interface CreateProductType {
     unitWeight: number,
     productType: ProductTypeEnum
 }
+
+export interface OrderedProductType {
+    productName: string,
+    amount: number,
+    unitPrice: number
+}

@@ -2,6 +2,7 @@ import { model, Error, MongooseError} from "mongoose";
 import { orderSchema } from "../schemas/Order";
 import { OrderType } from "../types/Order";
 import { OrderStatusEnum } from "../enums/OrderStatus.enum";
+import { connectToMongoDB } from "./connection";
 
 const Order = model<OrderType>("Order", orderSchema);
 
@@ -9,7 +10,11 @@ export const findAllOrders = async () => {
     try {
         return await Order.find({});
     } catch (error) {
-        return error as Error.MongooseServerSelectionError;
+        if (error instanceof Error.MongooseServerSelectionError) {
+            console.log("Trying to connect again...");
+            await connectToMongoDB();
+        }
+        return error;
     }
 }
 
@@ -23,7 +28,11 @@ export const findOrderById = async(id: string) => {
     } catch (error) {
         if (error instanceof Error.DocumentNotFoundError) {
             return error as Error.DocumentNotFoundError;
+        } else if (error instanceof Error.MongooseServerSelectionError) {
+            console.log("Trying to connect again...");
+            await connectToMongoDB();
         }
+        return error;
     }
 }
 
@@ -33,7 +42,11 @@ export const createOrder = async (newOrder: OrderType) => {
     } catch (error) {
         if (error instanceof Error.ValidationError) {
             return error as Error.ValidationError;
+        } else if (error instanceof Error.MongooseServerSelectionError) {
+            console.log("Trying to connect again...");
+            await connectToMongoDB();
         }
+        return error;
     }
 }
 
@@ -51,6 +64,10 @@ export const updateOrderStatus = async (id: string, newStatus: OrderStatusEnum) 
             return error as Error.ValidationError;
         } else if (error instanceof Error.DocumentNotFoundError) {
             return error as Error.DocumentNotFoundError
+        } else if (error instanceof Error.MongooseServerSelectionError) {
+            console.log("Trying to connect again...");
+            await connectToMongoDB();
         }
+        return error;
     }
 }
