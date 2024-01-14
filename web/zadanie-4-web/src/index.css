@@ -181,7 +181,7 @@ p {
     flex: 1 1 auto;
 }
 
-.product {
+.product, .order {
     border: 1px solid var(--light-grey-border);
     border-radius: var(--border-radius);
     margin: 1rem;
@@ -191,7 +191,7 @@ p {
     justify-content: space-between;
 }
 
-.product:hover {
+.product:hover, .order:hover {
     background-color: var(--button-hover);
 }
 
@@ -258,7 +258,6 @@ p {
     margin: 0.3rem;
     border-radius: 0.2rem;
     transition: 0.1s;
-    font-weight: bold;
 }
 
 .close-button:hover {
@@ -374,6 +373,44 @@ tr:hover {
 
 .inputs {
     flex-direction: column;
+}
+
+#orders-page {
+    flex-basis: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+}
+
+#orders-button {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.category {
+    flex: 1 1 auto;
+    border: none;;
+    border-bottom: 1px solid var(--light-grey-border);
+    border-left: 1px solid var(--light-grey-border);
+    background-color: white;
+    color: var(--font-color);
+    transition: var(--transition-time);
+    padding: 1rem 0;
+}
+
+.category:hover {
+    background-color: var(--button-hover);
+}
+
+#orders {
+    overflow: auto;
+    max-height: 77vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 @media (max-width: 600px) {

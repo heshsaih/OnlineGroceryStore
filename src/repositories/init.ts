@@ -81,7 +81,6 @@ const products: ProductType[] = [
 
 const orders: OrderType[] = [
     {
-        approvalDate: new Date(),
         orderStatus: OrderStatusEnum.NOT_CONFIRMED,
         username: "stachu",
         email: "stachu12@onet.pl",
@@ -93,6 +92,38 @@ const orders: OrderType[] = [
             },
             {
                 productName: "Apples",
+                amount: 12
+            }
+        ]
+    },
+    {
+        orderStatus: OrderStatusEnum.CONFIRMED,
+        username: "amogus",
+        email: "amogus@onet.pl",
+        phoneNumber: "123123123",
+        orderedProducts: [
+            {
+                productName: "aaaaa",
+                amount: 1
+            },
+            {
+                productName: "bbbb",
+                amount: 3
+            }
+        ]
+    },
+    {
+        orderStatus: OrderStatusEnum.CANCELLED,
+        username: "gulash",
+        email: "DDDDD@onet.pl",
+        phoneNumber: "567567565",
+        orderedProducts: [
+            {
+                productName: "ddddd",
+                amount: 123
+            },
+            {
+                productName: "Appdddddles",
                 amount: 12
             }
         ]

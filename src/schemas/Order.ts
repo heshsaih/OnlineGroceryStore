@@ -19,7 +19,10 @@ const OrderedProductSchema = new Schema<OrderedProductsType>({
 });
 
 export const orderSchema = new Schema<OrderType>({
-    approvalDate: Date,
+    confirmDate: {
+        type: Date,
+        required: false
+    },
     orderStatus: {
         type: String,
         enum: OrderStatusEnum,

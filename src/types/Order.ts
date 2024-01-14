@@ -2,7 +2,7 @@ import { OrderStatusEnum } from "../enums/OrderStatus.enum";
 import { ProductTypeEnum } from "../enums/ProductType.enum";
 
 export interface OrderType {
-    approvalDate: Date,
+    confirmDate?: Date,
     orderStatus: OrderStatusEnum,
     username: string,
     email: string,

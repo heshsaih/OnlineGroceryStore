@@ -22,12 +22,13 @@ const CreateOrderModalBody = ({ orderedProducts, close }: { orderedProducts: Ord
         orderedProducts.forEach(obj => result += obj.amount * obj.unitPrice);
         return result.toFixed(2);
     }
+
     const createNewOrder = async () => {
         console.log(newOrder);
         try {
             const response = await api.createOrder(newOrder);
             if (response.status === StatusCodes.OK) {
-                alert("New product has been created successfully");
+                alert("New order has been created successfully");
                 close();
             } else {
                 let responseMessage = `${response.message} and message:\n\n`;

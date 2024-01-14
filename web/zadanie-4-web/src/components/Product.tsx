@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { OrderedProductType, ProductType } from "../types/Product";
 import ModalComponent from "./Modal";
 import ProductModalBody from "./ProductModalBody";
@@ -34,6 +34,7 @@ const ProductComponent = ({ product, addOrderedProduct, fetchProducts }: Product
                 <button className="button green" onClick={e => {
                     e.stopPropagation();
                     addProduct();
+                    alert(`Product "${product.name}" added to the cart!`);
                 }}>+</button>
             </div>
             { displayDetails && <ModalComponent close={(e) => {

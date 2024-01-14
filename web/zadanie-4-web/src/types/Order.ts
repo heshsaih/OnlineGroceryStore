@@ -3,7 +3,7 @@ import { OrderedProductType } from "./Product"
 
 export interface OrderType {
     id?: string,
-    confirmDate: Date,
+    confirmDate?: Date,
     orderStatus: OrderStatusEnum,
     username: string,
     email: string,

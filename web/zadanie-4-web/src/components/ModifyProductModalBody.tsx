@@ -29,7 +29,7 @@ const ModifyProductModalBodyComponent = ({ product, close, closeParent, fetchPro
         try {
             const response = await api.updateProduct(editProduct);
             if (response.status === StatusCodes.OK) {
-                alert("New product has been created successfully");
+                alert("Product has been modified successfully");
                 close();
                 closeParent();
                 fetchProducts();
