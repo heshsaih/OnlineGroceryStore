@@ -413,6 +413,11 @@ tr:hover {
     align-items: center;
 }
 
+.active {
+    color: var(--nice-blue);
+    border-bottom: 2px solid var(--nice-blue);
+}
+
 @media (max-width: 600px) {
     .component-body {
         flex-direction: column;
@@ -424,5 +429,9 @@ tr:hover {
 
     .modal-container {
         width: 80vw;
+    }
+
+    #component {
+        overflow: auto;
     }
 }

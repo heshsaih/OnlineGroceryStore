@@ -64,7 +64,7 @@ const products: ProductType[] = [
         productType: ProductTypeEnum.FRUITS
     },
     {
-        name: "Banana",
+        name: "Bananas",
         description: "Fresh, yellow bananas",
         unitPrice: 6.99,
         unitWeight: 1.0,
@@ -82,9 +82,9 @@ const products: ProductType[] = [
 const orders: OrderType[] = [
     {
         orderStatus: OrderStatusEnum.NOT_CONFIRMED,
-        username: "stachu",
-        email: "stachu12@onet.pl",
-        phoneNumber: "553220351",
+        username: "ACzerwinska",
+        email: "czerw32@onet.pl",
+        phoneNumber: 553220351,
         orderedProducts: [
             {
                 productName: "Bananas",
@@ -98,33 +98,35 @@ const orders: OrderType[] = [
     },
     {
         orderStatus: OrderStatusEnum.CONFIRMED,
-        username: "amogus",
-        email: "amogus@onet.pl",
-        phoneNumber: "123123123",
+        confirmDate: new Date(),
+        username: "PMarszalek12",
+        email: "peter32@gmail.pl",
+        phoneNumber: 793528341,
         orderedProducts: [
             {
-                productName: "aaaaa",
+                productName: "Toast bread",
                 amount: 1
             },
             {
-                productName: "bbbb",
+                productName: "Sparkling water",
                 amount: 3
             }
         ]
     },
     {
         orderStatus: OrderStatusEnum.CANCELLED,
-        username: "gulash",
-        email: "DDDDD@onet.pl",
-        phoneNumber: "567567565",
+        username: "mdabrowicz12",
+        confirmDate: new Date(),
+        email: "mateus32@yahoo.com",
+        phoneNumber: 567567565,
         orderedProducts: [
             {
-                productName: "ddddd",
-                amount: 123
+                productName: "Lettuce",
+                amount: 2
             },
             {
-                productName: "Appdddddles",
-                amount: 12
+                productName: "Coca-cola 2L",
+                amount: 1
             }
         ]
     }

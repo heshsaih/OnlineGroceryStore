@@ -6,7 +6,7 @@ export interface OrderType {
     orderStatus: OrderStatusEnum,
     username: string,
     email: string,
-    phoneNumber: string,
+    phoneNumber: number,
     orderedProducts: OrderedProductsType[]
 }
 

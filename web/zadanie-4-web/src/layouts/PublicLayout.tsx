@@ -1,8 +1,14 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import { OrderedProductType } from "../types/Product";
+import { OrderType } from "../types/Order";
 
-const PublicLayout = ({ Component }: { Component: React.FC }) => {
+export type FetchOrdersType = {
+    setFetchedOrders: React.Dispatch<React.SetStateAction<OrderType[]>>,
+    setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+const PublicLayout = ({ Component }: { Component: React.ReactNode }) => {
     const [orderedProducts, setOrderedProducts] = useState<OrderedProductType[]>([]);
     const addOrderedProduct = (newProduct: OrderedProductType) => {
         if (orderedProducts.filter(obj => obj.productName === newProduct.productName).length === 0) {
@@ -22,10 +28,12 @@ const PublicLayout = ({ Component }: { Component: React.FC }) => {
     const removeOrderedProduct = (product: OrderedProductType) => {
         setOrderedProducts([...orderedProducts].filter(obj => obj.productName !== product.productName));
     }
+
+    const clearBasket = () => setOrderedProducts([]);
     useEffect(() => console.log(orderedProducts), [orderedProducts]);
     return (
         <div id="public-layout">
-            <Navbar orderedProducts={orderedProducts} addOrderedProduct={addOrderedProduct} removeOrderedProduct={removeOrderedProduct} ></Navbar>
+            <Navbar clearBasket={clearBasket} orderedProducts={orderedProducts} addOrderedProduct={addOrderedProduct} removeOrderedProduct={removeOrderedProduct} ></Navbar>
             <div id="component">
                 <Component addOrderedProduct={addOrderedProduct}></Component>
             </div>

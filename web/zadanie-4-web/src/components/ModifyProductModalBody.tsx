@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CreateProductType, ProductType } from "../types/Product";
+import { ProductType } from "../types/Product";
 import { ProductTypeEnum } from "../enums/ProductType.enum";
 import { api } from "../api/api";
 import { StatusCodes } from "http-status-codes";
@@ -45,7 +45,6 @@ const ModifyProductModalBodyComponent = ({ product, close, closeParent, fetchPro
     return (
         <div className="modal-body">
             <h1>Edit product</h1>
-            <button onClick={updateProduct} className="button blue">Edit product</button>
             <label htmlFor="name">Product name</label>
             <input value={editProduct.name} onChange={e => changeEditProduct(e)} type="text" name="name" id="name" className="text-input"/>
             <label htmlFor="username">Description</label>
@@ -58,6 +57,7 @@ const ModifyProductModalBodyComponent = ({ product, close, closeParent, fetchPro
             <select onChange={e => changeEditProduct(e)} value={editProduct.productType} className="select-input" name="productType" id="productType">
                 {Object.values(ProductTypeEnum).map((x, _i) => <option value={x}>{x}</option>)}
             </select>
+            <button onClick={updateProduct} className="button blue">Confirm</button>
         </div>
     )
 }

@@ -2,7 +2,6 @@ import { StatusCodes } from "http-status-codes";
 import { api } from "../api/api";
 import { OrderStatusEnum } from "../enums/OrderStatus.enum";
 import { OrderType } from "../types/Order";
-import { ProductType } from "../types/Product";
 
 type OrderDetailsPropsType = {
     order: OrderType,
@@ -19,7 +18,9 @@ const OrderDetailsBodyComponent = ({ order, fetchOrders, close }: OrderDetailsPr
                 fetchOrders();
                 close();
             } else {
-                alert("amogus");
+                let responseMessage = `${response.message} and message:\n\n`;
+                Object.keys(response.response.data.errors).forEach(key => responseMessage += response.response.data.errors[key].message + "\n");
+                alert(responseMessage);
             }
         } catch (error) {
             console.log(error);
@@ -42,16 +43,12 @@ const OrderDetailsBodyComponent = ({ order, fetchOrders, close }: OrderDetailsPr
 
     const parseProducts = () => {
         let result = "";
-        order.orderedProducts.forEach(obj => result += `${obj.productName} ${obj.amount}, `);
-        return result; 
+        order.orderedProducts.forEach(obj => result += `"${obj.productName}": ${obj.amount}, `);
+        return result.slice(0, -2); 
     }
     return (
         <div className="modal-body">
             <h1>Order details</h1>
-            <div className="container">
-                { order.orderStatus === OrderStatusEnum.CONFIRMED && <><button onClick={completeOrder} className="button green">Complete</button><button onClick={cancelOrder} className="button red">Cancel</button></> }
-                { order.orderStatus === OrderStatusEnum.NOT_CONFIRMED && <><button onClick={confirmOrder} className="button blue">Confirm</button><button onClick={cancelOrder} className="button red">Cancel</button></> }
-            </div>
             <table>
                 <tr>
                     <th>Key</th>
@@ -73,6 +70,10 @@ const OrderDetailsBodyComponent = ({ order, fetchOrders, close }: OrderDetailsPr
                     <td>Phone number</td>
                     <td>{order.phoneNumber}</td>
                 </tr>
+                { order.confirmDate && <tr>
+                    <td>Confirm date</td>
+                    <td>{order.confirmDate}</td>
+                </tr> }
                 <tr>
                     <td>Order status</td>
                         {order.orderStatus === OrderStatusEnum.NOT_CONFIRMED && <td style={{color: "grey"}}>{order.orderStatus}</td>}
@@ -85,6 +86,10 @@ const OrderDetailsBodyComponent = ({ order, fetchOrders, close }: OrderDetailsPr
                     <td>{parseProducts()}</td>
                 </tr>
             </table>
+            <div className="container">
+                { order.orderStatus === OrderStatusEnum.CONFIRMED && <><button onClick={completeOrder} className="button green">Complete</button><button onClick={cancelOrder} className="button red">Cancel</button></> }
+                { order.orderStatus === OrderStatusEnum.NOT_CONFIRMED && <><button onClick={confirmOrder} className="button blue">Confirm</button><button onClick={cancelOrder} className="button red">Cancel</button></> }
+            </div>
         </div>
     )
 }

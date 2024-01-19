@@ -7,10 +7,11 @@ import CreateOrderModalBody from "./CreateOrderModalBody";
 type DropDownPropsType = {
     orderedProducts: OrderedProductType[], 
     addOrderedProduct: (product: OrderedProductType) => void, 
-    removeOrderedProduct: (product: OrderedProductType) => void
+    removeOrderedProduct: (product: OrderedProductType) => void,
+    clearBasket: () => void
 }
 
-const DropDownComponent = ({ orderedProducts, addOrderedProduct, removeOrderedProduct }: DropDownPropsType) => {
+const DropDownComponent = ({ clearBasket, orderedProducts, addOrderedProduct, removeOrderedProduct }: DropDownPropsType) => {
     const [displayCreateModal, setDisplayCreateModal] = useState(false);
     const showModal = () => setDisplayCreateModal(true);
     const closeModal = () => setDisplayCreateModal(false);
@@ -22,7 +23,7 @@ const DropDownComponent = ({ orderedProducts, addOrderedProduct, removeOrderedPr
                 { orderedProducts.length === 0 && <p>Cart is empty</p> }
             </div>
             <button onClick={showModal} className="button blue" disabled={orderedProducts.length === 0}>Checkout</button>
-            {displayCreateModal ? <ModalComponent close={closeModal} Body={<CreateOrderModalBody close={closeModal} orderedProducts={orderedProducts}></CreateOrderModalBody>}></ModalComponent> : <></>}
+            {displayCreateModal ? <ModalComponent close={closeModal} Body={<CreateOrderModalBody clearBasket={clearBasket} close={closeModal} orderedProducts={orderedProducts}></CreateOrderModalBody>}></ModalComponent> : <></>}
         </div>
     )
 }

@@ -40,9 +40,9 @@ export const orderSchema = new Schema<OrderType>({
         match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, OrderValidationMessages.EMAIL_WRONG_SYNTAX]
     },
     phoneNumber: {
-        type: String,
-        minlength: [9, OrderValidationMessages.PHONE_NUMBER_LENGTH],
-        maxlength: [9, OrderValidationMessages.PHONE_NUMBER_LENGTH],
+        type: Number,
+        min: [100000000, OrderValidationMessages.PHONE_NUMBER_LENGTH],
+        max: [999999999, OrderValidationMessages.PHONE_NUMBER_LENGTH],
         required: [true, OrderValidationMessages.PHONE_NUMBER_REQUIRED]
     },
     orderedProducts: [{

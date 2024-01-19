@@ -28,9 +28,7 @@ export const findProductById = async (id: string) => {
         return result;
     } catch (error) {
         console.log(error);
-        if (error instanceof Error.DocumentNotFoundError) {
-            return error as Error.DocumentNotFoundError;
-        } else if (error instanceof Error.MongooseServerSelectionError) {
+        if (error instanceof Error.MongooseServerSelectionError) {
             console.log("Trying to connect again...");
             await connectToMongoDB();
         }
@@ -47,9 +45,7 @@ export const createProduct = async (product: ProductType) => {
         return response;
     } catch (error) {
         console.log(error);
-        if (error instanceof Error.ValidationError) {
-            return error as Error.ValidationError;
-        } else if (error instanceof Error.MongooseServerSelectionError) {
+        if (error instanceof Error.MongooseServerSelectionError) {
             console.log("Trying to connect again...");
             await connectToMongoDB();
         }
@@ -67,11 +63,7 @@ export const updateProduct = async (id: string, newProduct: ProductType) => {
         return result;
     } catch (error) {
         console.log(error);
-        if (error instanceof Error.DocumentNotFoundError) {
-            return error as Error.DocumentNotFoundError;
-        } else if (error instanceof Error.ValidationError) {
-            return error as Error.ValidationError;
-        } else if (error instanceof Error.MongooseServerSelectionError) {
+        if (error instanceof Error.MongooseServerSelectionError) {
             console.log("Trying to connect again...");
             await connectToMongoDB();
         }

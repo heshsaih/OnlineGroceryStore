@@ -7,5 +7,6 @@ export enum OrderValidationMessages {
     EMAIL_WRONG_SYNTAX = "E-mail's syntax is wrong",
     PHONE_NUMBER_REQUIRED = "Phone number is required",
     PHONE_NUMBER_LENGTH = "Phone number must be 9 digit",
-    ORDERED_PRODUCT_REQUIRED = "Ordered product's are required"
+    ORDERED_PRODUCT_REQUIRED = "Ordered product's are required",
+    PHONE_NUMBER_WITH_LETTERS = "Phone number can't contain letters"
 }

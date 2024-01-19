@@ -1,13 +1,18 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { OrderedProductType } from "../types/Product";
 import { OrderType } from "../types/Order";
 import { api } from "../api/api";
 import { StatusCodes } from "http-status-codes";
 import { OrderStatusEnum } from "../enums/OrderStatus.enum";
 
-const CreateOrderModalBody = ({ orderedProducts, close }: { orderedProducts: OrderedProductType[], close: () => void }) => {
+type CreateOrderPropsType = {
+    orderedProducts: OrderedProductType[],
+    close: () => void,
+    clearBasket: () => void
+}
+
+const CreateOrderModalBody = ({ orderedProducts, close, clearBasket }: CreateOrderPropsType) => {
     const [newOrder, setNewOrder] = useState<OrderType>({
-        confirmDate: new Date(),
         username: "",
         email: "",
         phoneNumber: "",
@@ -29,6 +34,7 @@ const CreateOrderModalBody = ({ orderedProducts, close }: { orderedProducts: Ord
             const response = await api.createOrder(newOrder);
             if (response.status === StatusCodes.OK) {
                 alert("New order has been created successfully");
+                clearBasket();
                 close();
             } else {
                 let responseMessage = `${response.message} and message:\n\n`;

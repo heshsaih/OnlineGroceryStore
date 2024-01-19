@@ -26,10 +26,11 @@ const navbarItems: NavbarItemType[] = [
 type NavbarPropsType = {
     orderedProducts: OrderedProductType[], 
     addOrderedProduct: (product: OrderedProductType) => void, 
-    removeOrderedProduct: (product: OrderedProductType) => void
+    removeOrderedProduct: (product: OrderedProductType) => void,
+    clearBasket: () => void
 }
 
-const Navbar = ({ orderedProducts, addOrderedProduct, removeOrderedProduct }: NavbarPropsType) => {
+const Navbar = ({ orderedProducts, addOrderedProduct, removeOrderedProduct, clearBasket }: NavbarPropsType) => {
     const [showBasket, setShowBasket] = useState(false);
     const basketRef = useRef();
     const hideBasket = () => {
@@ -68,7 +69,7 @@ const Navbar = ({ orderedProducts, addOrderedProduct, removeOrderedProduct }: Na
             </div>
             <div id="basket" ref={basketRef}>
                 <button onClick={() => showBasket ? hideBasket() : displayBasket()} className="button"><BasketIcon></BasketIcon></button>
-                {showBasket ? <DropDownComponent orderedProducts={orderedProducts} addOrderedProduct={addOrderedProduct} removeOrderedProduct={removeOrderedProduct} ></DropDownComponent> : <></>}
+                {showBasket ? <DropDownComponent clearBasket={clearBasket} orderedProducts={orderedProducts} addOrderedProduct={addOrderedProduct} removeOrderedProduct={removeOrderedProduct} ></DropDownComponent> : <></>}
             </div>
         </div>
     )

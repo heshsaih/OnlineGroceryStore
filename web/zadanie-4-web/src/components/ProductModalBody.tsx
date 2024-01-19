@@ -16,7 +16,6 @@ const ProductModalBodyComponent = ({ product, close, fetchProducts }: ProductMod
     return (
         <div className="modal-body">
             <h1 className="modal-heading">Product details</h1>
-            <button onClick={showEdit} className="button blue">Edit product</button>
             <table>
                 <tr>
                     <th>Key</th>
@@ -47,6 +46,7 @@ const ProductModalBodyComponent = ({ product, close, fetchProducts }: ProductMod
                     <td>{product.unitWeight}</td>
                 </tr>
             </table>
+            <button onClick={showEdit} className="button blue">Edit product</button>
             { displayEditProduct && <ModalComponent close={closeEdit}  Body={<ModifyProductModalBodyComponent fetchProducts={fetchProducts} closeParent={close} close={closeEdit} product={product}></ModifyProductModalBodyComponent>}></ModalComponent> }
         </div>
     )
