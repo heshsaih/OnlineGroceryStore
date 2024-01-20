@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import { OrderedProductType } from "../types/Product";
-import { OrderType } from "../types/Order";
 
-export type FetchOrdersType = {
-    setFetchedOrders: React.Dispatch<React.SetStateAction<OrderType[]>>,
-    setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
+interface ComponentPropType {
+    addOrderedProduct: (newProduct: OrderedProductType) => void
 }
 
-const PublicLayout = ({ Component }: { Component: React.ReactNode }) => {
+const PublicLayout = ({ Component }: { Component: React.FunctionComponent<ComponentPropType> }) => {
     const [orderedProducts, setOrderedProducts] = useState<OrderedProductType[]>([]);
     const addOrderedProduct = (newProduct: OrderedProductType) => {
         if (orderedProducts.filter(obj => obj.productName === newProduct.productName).length === 0) {

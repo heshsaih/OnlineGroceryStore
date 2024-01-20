@@ -1,6 +1,5 @@
 import express, { Request, Response } from 'express';
 import { createProduct, findAllProducts, findProductById, updateProduct } from '../repositories/ProductRepository';
-import { ProductType, isProduct } from '../types/Product';
 import { Error } from 'mongoose';
 import { StatusCodes } from 'http-status-codes';
 

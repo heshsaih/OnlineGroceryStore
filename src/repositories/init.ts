@@ -134,6 +134,10 @@ const orders: OrderType[] = [
 
 export const initData = async () => {
     await mongoose.connection.db.dropDatabase();
-    products.forEach(async (obj) => await createProduct(obj));
-    orders.forEach(async (obj) => await createOrder(obj));
+    for (const obj of products) {
+        await createProduct(obj);
+    }
+    for (const obj of orders) {
+        await createOrder(obj);
+    }
 };

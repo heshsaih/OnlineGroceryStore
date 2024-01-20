@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { OrderedProductType, ProductType } from "../types/Product";
 import ModalComponent from "./Modal";
 import ProductModalBody from "./ProductModalBody";

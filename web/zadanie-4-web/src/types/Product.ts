@@ -18,6 +18,7 @@ export interface CreateProductType {
 }
 
 export interface OrderedProductType {
+    id?: string,
     productName: string,
     amount: number,
     unitPrice: number

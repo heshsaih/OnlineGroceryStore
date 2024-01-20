@@ -1,4 +1,4 @@
-import { MouseEventHandler } from "react";
+import React, { MouseEventHandler } from "react";
 
 export interface ModalPropsType {
     close: MouseEventHandler,

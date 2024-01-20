@@ -3,7 +3,6 @@ import { OrderType, OrderedProductsType } from "../types/Order";
 import { OrderStatusEnum } from "../enums/OrderStatus.enum";
 import { OrderValidationMessages } from "../enums/OrderValidationMessages";
 import { OrderedProductValidationMessages } from "../enums/OrderedProductValidationMessages";
-import { ProductTypeEnum } from "../enums/ProductType.enum";
 
 const OrderedProductSchema = new Schema<OrderedProductsType>({
     productName: {

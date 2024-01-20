@@ -32,11 +32,11 @@ type NavbarPropsType = {
 
 const Navbar = ({ orderedProducts, addOrderedProduct, removeOrderedProduct, clearBasket }: NavbarPropsType) => {
     const [showBasket, setShowBasket] = useState(false);
-    const basketRef = useRef();
+    const basketRef = useRef(null);
     const hideBasket = () => {
         const basket = document.querySelector("#drop-down");
         basket?.classList.replace("show-anim", "hide-anim");
-        setTimeout(() => setShowBasket(false), 210);
+        setTimeout(() => setShowBasket(false), 200);
     };
 
     const displayBasket = () => {
@@ -44,7 +44,8 @@ const Navbar = ({ orderedProducts, addOrderedProduct, removeOrderedProduct, clea
     }
 
     useEffect(() => {
-        const closeBasket = e => {
+        const closeBasket = (e: { target: any; }) => {
+            // @ts-ignore
             if (!basketRef.current.contains(e.target)) {
                 hideBasket();
             }

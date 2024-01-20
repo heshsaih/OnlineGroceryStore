@@ -1,5 +1,4 @@
-import { MouseEventHandler } from "react";
-import { ModalPropsType } from "../types/ModalProps";
+import { ModalPropsType } from "../types/ModalProps.ts";
 
 const ModalComponent = ({ close, Body }: ModalPropsType) => {
     return (

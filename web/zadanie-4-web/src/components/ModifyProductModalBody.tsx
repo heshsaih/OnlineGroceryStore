@@ -1,8 +1,9 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { ProductType } from "../types/Product";
 import { ProductTypeEnum } from "../enums/ProductType.enum";
 import { api } from "../api/api";
 import { StatusCodes } from "http-status-codes";
+import axios from "axios";
 
 type ModifyProductModalPropsType = {
     product: ProductType, 
@@ -33,10 +34,12 @@ const ModifyProductModalBodyComponent = ({ product, close, closeParent, fetchPro
                 close();
                 closeParent();
                 fetchProducts();
-            } else {
+            } else if (axios.isAxiosError(response)) {
                 let responseMessage = `${response.message} and message:\n\n`;
-                Object.keys(response.response.data.errors).forEach(key => responseMessage += response.response.data.errors[key].message + "\n");
+                Object.keys(response.response?.data.errors).forEach(key => responseMessage += response.response?.data.errors[key].message + "\n");
                 alert(responseMessage);
+            } else {
+                alert(response.statusText);
             }
         } catch (error) {
             console.log(error);

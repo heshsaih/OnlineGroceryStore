@@ -1,9 +1,10 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { OrderedProductType } from "../types/Product";
 import { OrderType } from "../types/Order";
 import { api } from "../api/api";
 import { StatusCodes } from "http-status-codes";
 import { OrderStatusEnum } from "../enums/OrderStatus.enum";
+import axios from "axios";
 
 type CreateOrderPropsType = {
     orderedProducts: OrderedProductType[],
@@ -36,10 +37,12 @@ const CreateOrderModalBody = ({ orderedProducts, close, clearBasket }: CreateOrd
                 alert("New order has been created successfully");
                 clearBasket();
                 close();
-            } else {
+            } else if (axios.isAxiosError(response)) {
                 let responseMessage = `${response.message} and message:\n\n`;
-                Object.keys(response.response.data.errors).forEach(key => responseMessage += response.response.data.errors[key].message + "\n");
+                Object.keys(response.response?.data.errors).forEach(key => responseMessage += response.response?.data.errors[key].message + "\n");
                 alert(responseMessage);
+            } else {
+                alert(response.statusText);
             }
         } catch (error) {
             console.log(error);
